@@ -208,7 +208,7 @@ def conectar():
 		EDAD INTEGER (3),
 		CORREO VARCHAR(20),
 		DIRECCION VARCHAR(50),
-		TELEFONO INTEGER(7),
+		TELEFONO VARCHAR(7),
 		SEXO VARCHAR(15),
 		COMENTARIOS VARCHAR(250),
 		FECHA_INGRESO,
@@ -271,14 +271,30 @@ def leer():
 		fecha_usuario.set(i[4])
 		correo_usuario.set(i[6])
 		direccion_usuario.set(i[7])
-		telefono_usuario.set(i[8])
+		# el numero de telefono de la base es i[8], voy a dividirlo en prefijo y sufijo por lo tanto
+		telf_base = i[8]
+		prefijo = telf_base[0:4]
+		sufijo = telf_base[4:11]
+		if prefijo == "0412":
+			var_option.set(1)
+		if prefijo == "0414":
+			var_option.set(2)
+		if prefijo == "0424":
+			var_option.set(3)
+		if prefijo == "0416":
+			var_option.set(4)
+		if prefijo == "0426":
+			var_option.set(5)
+		if prefijo == "0251":
+			var_option.set(6)
+		telefono_usuario.set(sufijo)
 		if i[9]=="Masculino":
 			var_option1.set(7)
 		else:
 			var_option1.set(8)
 
 		campo_comentarios.insert(1.0,i[10])
-		messagebox.showinfo("Edad!", f"La edad de esta persona es  {i[5]}")
+		messagebox.showinfo("Edad!", f"La edad de esta persona es  {i[5]} e ingresó al sistema el {i[11]}, el sistema no se ha actualizado desde {i[12]}")
 
 
 
