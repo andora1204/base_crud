@@ -253,6 +253,40 @@ def insertar():
 		mi_conexion.close()
 
 
+def leer():
+	mi_conexion=sqlite3.connect("Datos_Completos")
+	mi_cursor=mi_conexion.cursor()
+	campo_comentarios.delete(1.0, END)
+
+	numero_ID = int(ID_usuario.get())
+
+	mi_cursor.execute(f"SELECT * FROM USUARIOS WHERE ID={numero_ID}")
+
+	lectura_tabla = mi_cursor.fetchall()
+
+	for i in lectura_tabla:
+		nombre_usuario.set(i[1])
+		apellido_usuario.set(i[2])
+		cedula_usuario.set(i[3])
+		fecha_usuario.set(i[4])
+		correo_usuario.set(i[6])
+		direccion_usuario.set(i[7])
+		telefono_usuario.set(i[8])
+		if i[9]=="Masculino":
+			var_option1.set(7)
+		else:
+			var_option1.set(8)
+
+		campo_comentarios.insert(1.0,i[10])
+		messagebox.showinfo("Edad!", f"La edad de esta persona es  {i[5]}")
+
+
+
+	mi_conexion.commit()
+	mi_conexion.close()
+
+
+
 
 #Interfaz Grafica##########################################################
 
@@ -400,7 +434,7 @@ my_frame2.pack()
 primer_boton=Button(my_frame2, text="Create")
 primer_boton.grid(row=0, column=0, padx=5, pady=10)
 
-segundo_boton=Button(my_frame2, text="Read")
+segundo_boton=Button(my_frame2, text="Read", command=leer)
 segundo_boton.grid(row=0, column=1, padx=5, pady=10)
 
 tercer_boton=Button(my_frame2, text="Update")
