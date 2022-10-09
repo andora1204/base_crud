@@ -326,7 +326,7 @@ def actualizar():
 		
 		lista_usuarios.append(fecha_actualizacion())
 
-		mi_cursor.execute(f"UPDATE USUARIOS SET NOMBRES=?, APELLIDOS=?,CEDULA=?,FECHA=?,EDAD=?,CORREO=?,DIRECCION=?,TELEFONO=?,SEXO=?,COMENTARIOS=?,FECHA_ACTUALIZACION=?" +
+		mi_cursor.execute("UPDATE USUARIOS SET NOMBRES=?, APELLIDOS=?,CEDULA=?,FECHA=?,EDAD=?,CORREO=?,DIRECCION=?,TELEFONO=?,SEXO=?,COMENTARIOS=?,FECHA_ACTUALIZACION=?" +
 		 "WHERE ID=" + numero_ID, lista_usuarios )
 	
 
