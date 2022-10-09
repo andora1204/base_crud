@@ -301,6 +301,38 @@ def leer():
 	mi_conexion.commit()
 	mi_conexion.close()
 
+def actualizar():
+	mi_conexion=sqlite3.connect("Datos_Completos")
+	mi_cursor=mi_conexion.cursor()
+
+	numero_ID = str(ID_usuario.get())
+
+	if nacimiento_str() == False:
+		messagebox.showwarning("Advertencia",
+		"coloque bien el formato especificado dd/mm/aaaa")
+	else:
+
+		lista_usuarios=[]
+		lista_usuarios.append(nombres())
+		lista_usuarios.append(apellidos())		
+		lista_usuarios.append(cedula())
+		lista_usuarios.append(nacimiento_str())
+		lista_usuarios.append(edad())
+		lista_usuarios.append(email())
+		lista_usuarios.append(direccion_usuario.get())	
+		lista_usuarios.append(phone_cel())
+		lista_usuarios.append(genero())
+		lista_usuarios.append(campo_comentarios.get("1.0", END))
+		
+		lista_usuarios.append(fecha_actualizacion())
+
+		mi_cursor.execute(f"UPDATE USUARIOS SET NOMBRES=?, APELLIDOS=?,CEDULA=?,FECHA=?,EDAD=?,CORREO=?,DIRECCION=?,TELEFONO=?,SEXO=?,COMENTARIOS=?,FECHA_ACTUALIZACION=?" +
+		 "WHERE ID=" + numero_ID, lista_usuarios )
+	
+
+		mi_conexion.commit()
+		mi_conexion.close()
+
 
 
 
@@ -453,7 +485,7 @@ primer_boton.grid(row=0, column=0, padx=5, pady=10)
 segundo_boton=Button(my_frame2, text="Read", command=leer)
 segundo_boton.grid(row=0, column=1, padx=5, pady=10)
 
-tercer_boton=Button(my_frame2, text="Update")
+tercer_boton=Button(my_frame2, text="Update", command=actualizar)
 tercer_boton.grid(row=0, column=2, padx=5, pady=10)
 
 cuarto_boton=Button(my_frame2, text="Delete")
